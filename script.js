@@ -1,10 +1,10 @@
 var white, black;
-var x = 600; // total width
-var y = 400; // total height
-var h = 380; // long edge of one big trapezoid
+var x = 1430; // total width
+var y = 690; // total height
+var h = 930; // long edge of one big trapezoid
 var boldFont; // font
-var fontSize = 40;
-var fontPadding = 20;
+var fontSize = 130;
+var fontPadding = 40;
 var hours = 0; //tmp
 var amColor, pmColor;
 var starsImg, confettiImg, holloweenImg, glitterImg;
@@ -31,7 +31,7 @@ function setup(){
 	olinCyan = color('#6bc1d3');
 
   	createCanvas(x, y);
-  	frameRate(50);
+  	frameRate(3);
 }
 
 function draw() {
@@ -68,7 +68,7 @@ function draw() {
 
 	// Text
 	fill(colorWithAlpha(computeColor(amColor, pmColor, am, leftTextTop), 230));
-	textFont(boldFont, 80);
+	textFont(boldFont, fontSize);
 	textAlign(CENTER);
 	text(leftText, aLeftText, bLeftText);
 
@@ -93,7 +93,7 @@ function draw() {
 
 	// Text
 	fill(colorWithAlpha(computeColor(amColor, pmColor, false, rightTextTop), 230));
-	textFont(boldFont, 80);
+	textFont(boldFont, fontSize);
 	textAlign(CENTER);
 	text(rightText, aRightText, bRightText);
 }
@@ -103,9 +103,10 @@ function draw() {
 function update() {
 	var date = new Date();
 	var seconds = date.getSeconds() + date.getMilliseconds()/1000;
-	// var hours = date.getHours() + date.getMinutes()/60 + seconds/3600;
-	hours = hours > 24 ? 0 : hours + 0.05;
-	var hours12 = hours > 12 ? hours - 12 : hours;
+	var minutes = date.getMinutes() + seconds/60;
+	// var hours = date.getHours() + minutes/60;
+	hours = hours > 23 ? 0 : hours + 1;
+	var hours12 = hours >= 13 ? hours - 12 : hours + 1;
 
 	var bLeft = y * (12 - hours12)/12;
 	var bRight = y * (60 - seconds)/60;
@@ -124,7 +125,7 @@ function update() {
 		aLeftText: aLeft / 2,
 		bLeftText: leftTextPosition.b,
 		leftTextTop: leftTextPosition.top,
-		leftText: Math.floor(hours12 + 1).toString(),
+		leftText: Math.floor(hours12).toString(),
 		aRightText: (x + aRight)/2,
 		bRightText: rightTextPosition.b,
 		rightTextTop: rightTextPosition.top,
@@ -149,7 +150,7 @@ function computeColor(amColor, pmColor, am, textTop) {
 function computeTextPosition(b) {
 	var bText, textTop;
 	if (y/b > 2) {
-		bText = (b + fontSize*1.45 + fontPadding);
+		bText = (b + fontSize*0.8 + fontPadding);
 		textTop = true;
 	} else {
 		bText = (b - fontPadding);
@@ -165,8 +166,8 @@ function computeEasterEggs(date, state) {
 	// var day = date.getDate();
 	// var month = date.getMonth() + 1;
 
-	var month = 2;
-	var day = 16;
+	var month = 5;
+	var day = 10;
 
 	// 4/20
 	if (day == 20 && month == 4) {
@@ -175,7 +176,7 @@ function computeEasterEggs(date, state) {
 	}
 
 	// 5/4: star wars
-	if (day == 4, month == 5) {
+	if (day == 4 && month == 5) {
 		amColor = colorWithAlpha(olinBlue, 140);
 		pmColor = colorWithAlpha(olinBlack, 120);
 		starsImg = starsImg || loadImage('assets/images/stars.jpg');
