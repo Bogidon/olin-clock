@@ -14,7 +14,7 @@ function preload() {
 }
 
 function setup(){
-	olinWhite =  color('#ddd');
+	olinWhite =  color('#eee');
 	olinBlack = color('#000');
 	olinBlue = color('#009bdf');
 	olinDeepBlue = color('#00458c');
@@ -36,8 +36,8 @@ function setup(){
 
 function draw() {
 	// reset default colors
-	amColor = olinYellow;
-	pmColor = olinDeepBlue;
+	amColor = olinBlue;
+	pmColor = olinWhite;
 
 	var {
 		am,
