@@ -106,9 +106,10 @@ function update() {
 	var minutes = date.getMinutes() + seconds/60;
 	var hours = date.getHours() + minutes/60;
 	// hours = hours > 23 ? 0 : hours + 1;
-	var hours12 = hours >= 13 ? hours - 12 : hours + 1;
+	var hours12 = ((hours + 11) % 12 + 1);
+	console.log(hours);
 
-	var bLeft = y * (12 - hours12)/12;
+	var bLeft = y * (12 - (hours12 - 1))/12;
 	var bRight = y * (60 - minutes)/60;
 	var aLeft = computeA(bLeft);
 	var aRight = computeA(bRight);
@@ -129,7 +130,7 @@ function update() {
 		aRightText: (x + aRight)/2,
 		bRightText: rightTextPosition.b,
 		rightTextTop: rightTextPosition.top,
-		rightText: Math.floor(minutes + 1).toString(),
+		rightText: pad(Math.floor(minutes), 2),
 	}
 
 	return computeEasterEggs(date, state);
@@ -218,4 +219,10 @@ function colorWithAlpha(baseColor, alpha) {
 // a: point on the x axis where the two vertical trapezoids meet
 function computeA(b) {
 	return (x - h) + ((y - b) * (2 * h - x) / y);
+}
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
