@@ -36,8 +36,8 @@ function setup(){
 
 function draw() {
 	// reset default colors
-	amColor = olinBlue;
-	pmColor = olinWhite;
+	amColor = olinWhite;
+	pmColor = olinBlue;
 
 	var {
 		am,
