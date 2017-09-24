@@ -5,7 +5,7 @@ var h = 930; // long edge of one big trapezoid
 var boldFont; // font
 var fontSize = 130;
 var fontPadding = 40;
-var hours = 0; //tmp
+//var hours = 0; //tmp
 var amColor, pmColor;
 var starsImg, confettiImg, holloweenImg, glitterImg;
 
@@ -104,12 +104,12 @@ function update() {
 	var date = new Date();
 	var seconds = date.getSeconds() + date.getMilliseconds()/1000;
 	var minutes = date.getMinutes() + seconds/60;
-	// var hours = date.getHours() + minutes/60;
-	hours = hours > 23 ? 0 : hours + 1;
+	var hours = date.getHours() + minutes/60;
+	// hours = hours > 23 ? 0 : hours + 1;
 	var hours12 = hours >= 13 ? hours - 12 : hours + 1;
 
 	var bLeft = y * (12 - hours12)/12;
-	var bRight = y * (60 - seconds)/60;
+	var bRight = y * (60 - minutes)/60;
 	var aLeft = computeA(bLeft);
 	var aRight = computeA(bRight);
 
@@ -129,7 +129,7 @@ function update() {
 		aRightText: (x + aRight)/2,
 		bRightText: rightTextPosition.b,
 		rightTextTop: rightTextPosition.top,
-		rightText: Math.floor(seconds + 1).toString(),
+		rightText: Math.floor(minutes + 1).toString(),
 	}
 
 	return computeEasterEggs(date, state);
@@ -163,11 +163,8 @@ function computeTextPosition(b) {
 }
 
 function computeEasterEggs(date, state) {
-	// var day = date.getDate();
-	// var month = date.getMonth() + 1;
-
-	var month = 5;
-	var day = 10;
+	var day = date.getDate();
+	var month = date.getMonth() + 1;
 
 	// 4/20
 	if (day == 20 && month == 4) {
